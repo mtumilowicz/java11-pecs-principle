@@ -98,8 +98,8 @@ contrary bad design examples) in `PECSTest`:
             c.add(new Dog());
         }
         ```
-        because
+        because collections are invariant and:
         ```
-        addDog(new LinkedList<Cat>()) // passes, but should be compile time error!
+        addDog(new LinkedList<Dog>()); // compile time error
         ```
     
