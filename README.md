@@ -17,6 +17,9 @@ Please refer my other github project: https://github.com/mtumilowicz/java11-cova
     List<Integer> ints = new LinkedList<>();
     List<? super Integer> nums = ints;
     ```
+* Invariance: neither covariant nor contravariant
+    > Generics are invarant
+    
 * Remark:
     * covariance is read-only
     * contravariance is write-only
@@ -35,9 +38,10 @@ with its API.)
 
 # project description
 We provide easy examples of PECS principle (and 
-contrary bad design examples) in `PECSTest`:
+we show also examples of bad design - contradiction
+of PECS) in `PECSTest`:
 * producer
-    * constructor of a LinkedList is a good example of
+    * constructor of a `LinkedList` is a good example of
     producer
         ```
         public LinkedList(Collection<? extends E> c) {
@@ -84,6 +88,10 @@ contrary bad design examples) in `PECSTest`:
         private static void addDog_badDesign(Collection<Dog> c) {
             c.add(new Dog());
         }
+        
+        private static void addDog_badDesign2(Collection<Animal> c) {
+            c.add(new Dog());
+        }
         ```
         then
         ```
@@ -91,15 +99,10 @@ contrary bad design examples) in `PECSTest`:
         addDog_goodDesign(animals); // OK
         //        addDog_badDesign(animals); // compile time error
         //        addDog_goodDesign(new LinkedList<Cat>()); // compile time error
+        //        addDog_badDesign2(new LinkedList<Dog>()); // compile time error
         ```
-        note that we can't write addDog like:
+        note that collections are invariant so:
         ```
-        private static void addDog(Collection<Animal> c) {
-            c.add(new Dog());
-        }
-        ```
-        because collections are invariant and:
-        ```
-        addDog(new LinkedList<Dog>()); // compile time error
+        addDog_badDesign2(new LinkedList<Dog>()); // compile time error
         ```
     
