@@ -34,15 +34,21 @@ public class PECSTest {
     @Test
     public void consumer() {
         List<Animal> animals = new LinkedList<>();
-//        addDog_badDesign(animals) // compile time error
-        addDog(animals);
+        addDog_goodDesign(animals);
+//        addDog_badDesign(animals); // compile time error
+//        addDog_goodDesign(new LinkedList<Cat>()); // compile time error
+//        addDog_badDesign2(new LinkedList<Dog>()); // compile time error
     }
     
-     private static void addDog(Collection<? super Dog> c) {
+     private static void addDog_goodDesign(Collection<? super Dog> c) {
         c.add(new Dog());
     }
 
     private static void addDog_badDesign(Collection<Dog> c) {
+        c.add(new Dog());
+    }
+
+    private static void addDog_badDesign2(Collection<Animal> c) {
         c.add(new Dog());
     }
 }
