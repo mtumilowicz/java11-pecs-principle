@@ -17,25 +17,32 @@ public class PECSTest {
     public void producer() {
         List<Dog> toAdd = List.of(new Dog(), new Dog());
 
-        List<Animal> animals = new LinkedList<>(toAdd);
-//        LinkedList<Animal> dogs = fromList_badDesign(toAdd); // compile time error
+        List<Animal> animals = fromList_goodDesign(toAdd);
+//        LinkedList<Animal> dogs = fromList_badDesign(new LinkedList<Dog>()); // compile time error
 
         assertThat(animals.size(), is(2));
     }
     
-    private static <T> LinkedList<T> fromList_badDesign(List<T> list) {
+    private static <T> LinkedList<T> fromList_badDesign(Collection<T> list) {
+        return new LinkedList<>(list);
+    }
+
+    private static <T> LinkedList<T> fromList_goodDesign(Collection<? extends T> list) {
         return new LinkedList<>(list);
     }
 
     @Test
     public void consumer() {
-        List<Animal> dogs = new LinkedList<>();
-//        List<Animal> cats = new LinkedList<>();
-//        addDog(cats) // compile time error
-        addDog(dogs);
+        List<Animal> animals = new LinkedList<>();
+//        addDog_badDesign(animals) // compile time error
+        addDog(animals);
     }
     
      private static void addDog(Collection<? super Dog> c) {
+        c.add(new Dog());
+    }
+
+    private static void addDog_badDesign(Collection<Dog> c) {
         c.add(new Dog());
     }
 }
