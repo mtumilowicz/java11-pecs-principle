@@ -97,10 +97,9 @@ of PECS) in `PECSTest`:
         ```
         then
         ```
-        List<Animal> animals = new LinkedList<>();
-        addDog_goodDesign(animals); // OK
-        //        addDog_badDesign(animals); // compile time error
+        addDog_goodDesign(new LinkedList<Animal>());
         //        addDog_goodDesign(new LinkedList<Cat>()); // compile time error
+        //        addDog_badDesign(new LinkedList<Animal>()); // compile time error
         //        addDog_badDesign2(new LinkedList<Dog>()); // compile time error
         ```
         note that collections are invariant so:
