@@ -33,10 +33,9 @@ public class PECSTest {
 
     @Test
     public void consumer() {
-        List<Animal> animals = new LinkedList<>();
-        addDog_goodDesign(animals);
-//        addDog_badDesign(animals); // compile time error
+        addDog_goodDesign(new LinkedList<Animal>());
 //        addDog_goodDesign(new LinkedList<Cat>()); // compile time error
+//        addDog_badDesign(new LinkedList<Animal>()); // compile time error
 //        addDog_badDesign2(new LinkedList<Dog>()); // compile time error
     }
     
